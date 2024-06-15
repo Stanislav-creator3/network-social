@@ -1,14 +1,16 @@
-import { useState, type FC } from "react"
-import { useForm } from "react-hook-form"
+import type { FC } from "react"
+import { useState } from "react"
 import Input from "../componets/input"
+import { useForm } from "react-hook-form"
 import { Button, Link } from "@nextui-org/react"
-import { useLazyCurrentQuery, useLoginMutation } from "../app/services/userApi"
+import { useRegisterMutation } from "../app/services/userApi"
 import { useNavigate } from "react-router-dom"
-import ErrorMessage from "../componets/error-message"
 import { hasErrorField } from "../utils/has-error-field"
+import ErrorMessage from "../componets/error-message"
 
-type TLogin = {
+type TRegister = {
   email: string
+  name: string
   password: string
 }
 
@@ -16,38 +18,44 @@ type TProps = {
   setSelected: (value: string) => void
 }
 
-const Login: FC<TProps> = ({ setSelected }) => {
+const Register: FC<TProps> = ({ setSelected }) => {
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<TLogin>({
+  } = useForm<TRegister>({
     mode: "onChange",
     reValidateMode: "onBlur",
     defaultValues: {
       email: "",
       password: "",
+      name: "",
     },
   })
 
-  const [login, { isLoading }] = useLoginMutation()
+  const [register, { isLoading }] = useRegisterMutation()
   const navigate = useNavigate()
   const [error, setError] = useState("")
-  const [triggerCurrentQuery] = useLazyCurrentQuery()
 
-  const onSubmit = async (data: TLogin) => {
+  const onSubmit = async (data: TRegister) => {
     try {
-        await login(data).unwrap()
-        await triggerCurrentQuery();
-        navigate('/')
+      await register(data).unwrap()
+      setSelected("login")
     } catch (error) {
-        if (hasErrorField(error)) {
-            setError(error.data.error)
-          }
+      if (hasErrorField(error)) {
+        setError(error.data.error)
+      }
     }
   }
   return (
     <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+      <Input
+        control={control}
+        name="name"
+        label="name"
+        type="text"
+        required="Обязательное поле"
+      />
       <Input
         control={control}
         name="email"
@@ -63,25 +71,24 @@ const Login: FC<TProps> = ({ setSelected }) => {
         required="Обязательное поле"
       />
         <ErrorMessage error={error}/>
-
       <p className="text-center text-small ">
-        Нет аккаунта?
+        Уже есть аккаунт?
         <Link
           size="sm"
           className="cursor-pointer p-1"
-          onPress={() => setSelected("sing-up")}
+          onPress={() => setSelected("login")}
         >
-          Зарегистрируйтесь
+          Войти
         </Link>
       </p>
 
       <div className="flex gap-2 justify-end">
         <Button fullWidth color="primary" type="submit" isLoading={isLoading}>
-          Войти
+          Зарегистрироваться
         </Button>
       </div>
     </form>
   )
 }
 
-export default Login
+export default Register
