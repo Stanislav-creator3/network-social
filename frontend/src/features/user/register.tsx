@@ -1,12 +1,12 @@
 import type { FC } from "react"
 import { useState } from "react"
-import Input from "../componets/input"
+import Input from "../../componets/input"
 import { useForm } from "react-hook-form"
 import { Button, Link } from "@nextui-org/react"
-import { useRegisterMutation } from "../app/services/userApi"
+import { useRegisterMutation } from "../../app/services/userApi"
 import { useNavigate } from "react-router-dom"
-import { hasErrorField } from "../utils/has-error-field"
-import ErrorMessage from "../componets/error-message"
+import { hasErrorField } from "../../utils/has-error-field"
+import ErrorMessage from "../../componets/error-message"
 
 type TRegister = {
   email: string

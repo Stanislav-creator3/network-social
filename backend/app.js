@@ -4,17 +4,17 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const fs = require("fs");
-const cors = require("cors")
-require("dotenv").config()
+const cors = require("cors");
+require("dotenv").config();
 
 const app = express();
 
-app.use(cors())
+app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.set("view engine", "jade");
+app.set("view engine", "pug");
 
 app.use("/uploads", express.static("uploads"));
 

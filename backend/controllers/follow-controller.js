@@ -40,7 +40,7 @@ const FollowController = {
     }
   },
   unFollowUser: async (req, res) => {
-    const { followingId } = req.body;
+    const { id } = req.params
     const userId = req.user.userId;
 
     try {
@@ -49,7 +49,7 @@ const FollowController = {
           AND: [
             { followerId: userId },
             {
-              followingId,
+              followingId: id,
             },
           ],
         },

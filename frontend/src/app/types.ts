@@ -32,7 +32,7 @@ export type TUser = {
     authorId: string
     likes: TLike[]
     comments: Comment[]
-    likedByUser: boolean
+    likeByUser: boolean
     createdAt: Date
     updatedAt: Date
   }

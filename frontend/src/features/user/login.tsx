@@ -1,11 +1,11 @@
 import { useState, type FC } from "react"
 import { useForm } from "react-hook-form"
-import Input from "../componets/input"
+import Input from "../../componets/input"
 import { Button, Link } from "@nextui-org/react"
-import { useLazyCurrentQuery, useLoginMutation } from "../app/services/userApi"
+import { useLazyCurrentQuery, useLoginMutation } from "../../app/services/userApi"
 import { useNavigate } from "react-router-dom"
-import ErrorMessage from "../componets/error-message"
-import { hasErrorField } from "../utils/has-error-field"
+import ErrorMessage from "../../componets/error-message"
+import { hasErrorField } from "../../utils/has-error-field"
 
 type TLogin = {
   email: string
@@ -38,7 +38,7 @@ const Login: FC<TProps> = ({ setSelected }) => {
   const onSubmit = async (data: TLogin) => {
     try {
         await login(data).unwrap()
-        await triggerCurrentQuery();
+        await triggerCurrentQuery().unwrap();
         navigate('/')
     } catch (error) {
         if (hasErrorField(error)) {

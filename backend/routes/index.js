@@ -51,6 +51,6 @@ router.delete("/likes/:id", authenticateToken, LikeController.unLikePost);
 //Follow 
 
 router.post("/follow", authenticateToken, FollowController.followUser);
-router.delete("/unfollow", authenticateToken, FollowController.unFollowUser);
+router.delete("/unfollow/:id", authenticateToken, FollowController.unFollowUser);
 
 module.exports = router;
