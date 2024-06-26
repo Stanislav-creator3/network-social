@@ -9,23 +9,18 @@ import { MdAlternateEmail } from 'react-icons/md'
 const Profile = () => {
     const current= useAppSelector(selectCurrent)
 
-    if(!current) {
-        return null
-    }
-
-    const {name, email, avatarUrl, id} = current
   return (
    <Card className='py-4 w-[302px]'>
     <CardHeader className='pd-0 pt-2 px-4 flex-col items-center'>
-        <Image alt='Card Profile' className='object-cover rounded-x1' src={`${BASE_URL}${avatarUrl}`} width={370}/>
+        <Image alt='Card Profile' className='object-cover rounded-x1' src={`${BASE_URL}${current?.avatarUrl}`} width={370}/>
     </CardHeader>
     <CardBody>
-        <Link to={`/users/${id}`}>
-            <h4 className='font-bold text-large mb-2'>{name}</h4>
+        <Link to={`/users/${current?.id}`}>
+            <h4 className='font-bold text-large mb-2'>{current?.name}</h4>
         </Link>
         <p className="text-default-500 flex items-center gap-2">
             <MdAlternateEmail/>
-            {email}
+            {current?.email}
         </p>
     </CardBody>
    </Card>

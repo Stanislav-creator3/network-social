@@ -2,16 +2,15 @@ import Header from "../header"
 import Container from "../container"
 import Navbar from "../nav-bar"
 import { Outlet, useNavigate } from "react-router-dom"
-import { selectIsAuthenticated, selectUser } from "../../features/user/userSlice"
-import { useAppSelector } from "../../app/hooks"
+import { resetUser, selectIsAuthenticated, selectUser } from "../../features/user/userSlice"
+import { useAppDispatch, useAppSelector } from "../../app/hooks"
 import { useEffect } from "react"
-import NavButton from "../nav-button"
 import Profile from "../profile"
 
 const Layout = () => {
     const isAuthenticated = useAppSelector(selectIsAuthenticated)
     const user = useAppSelector(selectUser)
-
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -19,6 +18,10 @@ const Layout = () => {
             navigate("/auth")
         }
     }, [])
+
+
+
+    console.log(user)
   return (
     <>
       <Header />

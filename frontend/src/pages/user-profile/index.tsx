@@ -36,7 +36,7 @@ const UserProfile = () => {
 
   const dispatch = useAppDispatch()
 
-  useEffect(() => {
+  useEffect(() => () => {
     dispatch(resetUser())
   }, [])
 
