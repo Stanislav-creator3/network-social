@@ -117,7 +117,13 @@ const Card: FC<TProps> = ({
       likeByUser
         ? await unLikePost(id).unwrap()
         : await likePost({ postId: id }).unwrap()
-      await triggerPostById(id).unwrap()
+
+        if(cardFor === "current-post") {
+          await triggerPostById(id).unwrap()
+        }
+        if(cardFor === "post") {
+          await triggerGetAllPosts().unwrap()
+        }
     } catch (error) {
       if (hasErrorField(error)) {
         setError(error.data.error)

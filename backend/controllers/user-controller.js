@@ -123,8 +123,8 @@ const UserController = {
 
     let filePatch;
 
-    if (req.file && req.file.patch) {
-      filePatch = req.file.patch;
+    if (req.file && req.file.path) {
+      filePath =  req.file.path;
     }
 
     if (id !== req.user.userId) {
@@ -156,6 +156,7 @@ const UserController = {
           location: location || undefined,
         },
       });
+      console.log(req.body)
       res.json(user);
     } catch (error) {
       console.error(error);

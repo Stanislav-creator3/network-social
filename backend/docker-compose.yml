@@ -8,6 +8,7 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - react-app
     environment:
       DATABASE_URL: "mongodb://monty:pass@db:27017/mydatabase?directConnection=true&authSource=admin"
   db:
@@ -17,3 +18,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: monty
       MONGO_INITDB_ROOT_PASSWORD: pass
+  react-app: 
+    build: ../frontend
+    ports:
+      - "80:80"
